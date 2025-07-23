@@ -14,7 +14,7 @@ from oncodata.get_slice_count import get_slice_count
 def get_dicom_metadata_and_slice_counts(dicom_path):
     """Gets DICOM metadata and slice counts.
 
-    Argumuments:
+    Arguments:
         dicom_path(str): Path to a DICOM file.
     Returns:
         A dictionary containing the DICOM path,
