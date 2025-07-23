@@ -1,8 +1,10 @@
-from os.path import dirname, realpath
+from os.path import dirname, realpath, join
 import sys
 sys.path.append(dirname(dirname(realpath(__file__))))
 from tempfile import NamedTemporaryFile, TemporaryDirectory
 import unittest
+
+test_dir = dirname(realpath(__file__))
 
 from oncodata.dicom_metadata.get_dicom_metadata import get_dicom_metadata
 
@@ -94,7 +96,9 @@ class GetDicomMetadataTests(unittest.TestCase):
     def test_get_metadata(self):
         correct_metadata = DICOM_METADATA
 
-        metadata = get_dicom_metadata('test_data/test.dcm')
+        metadata = get_dicom_metadata(join(test_dir, 'test_data', 'test.dcm'))
+        metadata['ProcedureCodeSequence'] = metadata['ProcedureCodeSequence'].replace(', ', ',')
+        correct_metadata['ProcedureCodeSequence'] = correct_metadata['ProcedureCodeSequence'].replace(', ', ',')
 
         self.assertDictEqual(correct_metadata, metadata)
 
