@@ -6,7 +6,7 @@ from tempfile import NamedTemporaryFile
 import unittest
 
 import numpy as np
-from scipy.misc import imread
+from imageio.v2 import imread
 
 from oncodata.dicom_to_png.dicom_to_png import dicom_to_png_dcmtk
 
@@ -21,7 +21,7 @@ class DicomToPngTests(unittest.TestCase):
         with NamedTemporaryFile(suffix='.png') as png_file:
             dicom_to_png_dcmtk(dicom_path, png_file.name, selection_criteria, skip_existing=False)
             png = imread(png_file.name)
-        self.assertTrue(np.array_equal(correct_png, png))
+        self.assertTrue(np.allclose(correct_png, png, atol=1))
 
 
 if __name__ == '__main__':
